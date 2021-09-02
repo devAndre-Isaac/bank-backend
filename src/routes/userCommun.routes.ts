@@ -11,4 +11,4 @@ userCommunRouter.post("/", async (req: Request, res: Response) => {
   return res.status(201).json(user);
 });
 
-export default userCommunRouter;
+export { userCommunRouter };
