@@ -1,19 +1,20 @@
 import "reflect-metadata";
-import routes from "./routes";
+import express from "express";
 
 import { connection } from "./database";
-import express from "express";
+import { userCommunRouter } from "./routes/userCommun.routes";
 
 async function serverOn() {
   await connection();
+
   const app = express();
 
   app.use(express.json());
 
-  app.use(routes);
+  app.use(userCommunRouter);
 
   app.listen(3333, () => {
-    console.log(" ⚡ Application running on port 3333");
+    console.log(" ⚡ Server started at http://localhost:3333");
   });
 }
 serverOn();
