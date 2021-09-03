@@ -1,6 +1,5 @@
-import { Request, Response, Router } from "express";
-import { getRepository } from "typeorm";
-import { CommunUser } from "../entity/communUser";
+import { Router } from "express";
+
 import UserCommunController from "../controllers/userCommun";
 
 const userCommunRouter = Router();
