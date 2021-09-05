@@ -15,7 +15,7 @@ export class CommunUser {
   complete_name: string;
 
   @Column()
-  cpf: string;
+  cpf_cnpj: string;
 
   @Column()
   email: string;
