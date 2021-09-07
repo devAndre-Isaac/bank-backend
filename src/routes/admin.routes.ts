@@ -3,4 +3,5 @@ import AdminController from "../controllers/admin";
 
 const adminRouter = Router();
 
-adminRouter.get("/picpay/admin", AdminController.readSeller)
+adminRouter.get("/picpay/admin/seller", AdminController.readSeller)
+adminRouter.get("/picpay/admin/user", AdminController.readUser)
