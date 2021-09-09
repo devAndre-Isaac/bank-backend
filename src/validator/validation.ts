@@ -6,7 +6,7 @@ export const userValidator = [
     .not()
     .notEmpty()
     .withMessage("O campo nome é obrigatório."),
-  body("cpf_cnpj").isLength({ max: 50 }).not(),
+  body("cpf_cnpj").isLength({ max: 50 }).notEmpty(),
   body("email").isEmail(),
   body("password")
     .isLength({ max: 50 })
