@@ -7,4 +7,8 @@ export class Transactions {
 
   @Column()
   value: string;
+
+  @Column()
+  type: string;
+  
 }
