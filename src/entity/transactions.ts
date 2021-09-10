@@ -10,5 +10,4 @@ export class Transactions {
 
   @Column()
   type: string;
-  
 }
