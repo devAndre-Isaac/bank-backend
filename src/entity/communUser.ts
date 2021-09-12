@@ -23,6 +23,9 @@ export class CommunUser {
   @Column()
   senha: string;
 
+  @Column()
+  wallet: number;
+
   @CreateDateColumn()
   created_at: Date;
 
