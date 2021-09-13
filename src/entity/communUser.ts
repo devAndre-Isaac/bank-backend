@@ -24,12 +24,12 @@ export class CommunUser {
   email: string;
 
   @Column()
-  senha: string;
+  password: string;
 
   @BeforeInsert()
   @BeforeUpdate()
   hashPassword() {
-    this.senha = bcrypt.hashSync(this.senha, 8);
+    this.password = bcrypt.hashSync(this.password, 8);
   }
 
   @Column()
