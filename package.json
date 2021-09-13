@@ -16,8 +16,10 @@
     "m:run": "npm run typeorm migration:run"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
     "@types/node": "^16.7.10",
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
     "pg": "^8.7.1",
