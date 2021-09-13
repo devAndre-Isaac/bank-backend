@@ -4,7 +4,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  BeforeUpdate,
+  BeforeInsert,
 } from "typeorm";
+
+import bcrypt from "bcryptjs";
 
 @Entity("sellers")
 export class Sellers {
@@ -22,6 +26,12 @@ export class Sellers {
 
   @Column()
   senha: string;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  hashPassword() {
+    this.senha = bcrypt.hashSync(this.senha, 8);
+  }
 
   @Column()
   wallet: number;
