@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+
 import { Sellers } from "../entity/sellers";
 
 class SellersController {
