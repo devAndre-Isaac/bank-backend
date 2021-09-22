@@ -15,6 +15,16 @@ class AdminController {
     const usersToRead = await repositoryUsers.findAndCount();
     return res.json({ users: usersToRead });
   }
+  async readUserById(req: Request, res: Response) {
+    const repositoryUsersId = getRepository(CommunUser);
+    const { _id } = req.params;
+    const idReturn = await repositoryUsersId.findOne(_id);
+    if (!idReturn) {
+      return res.send({ Message: "Identification does not exist" });
+    } else {
+      return res.json(idReturn);
+    }
+  }
 }
 
 export default new AdminController();
