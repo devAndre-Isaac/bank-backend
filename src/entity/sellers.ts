@@ -1,19 +1,20 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  ObjectIdColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
   BeforeUpdate,
   BeforeInsert,
+  ObjectID,
 } from "typeorm";
 
 import bcrypt from "bcryptjs";
 
 @Entity("sellers")
 export class Sellers {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @ObjectIdColumn()
+  id: ObjectID;
 
   @Column()
   complete_name: string;
