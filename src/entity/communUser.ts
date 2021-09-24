@@ -1,18 +1,19 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
   BeforeUpdate,
   BeforeInsert,
+  ObjectIdColumn,
+  ObjectID,
 } from "typeorm";
 
 import bcrypt from "bcryptjs";
 @Entity("communUser")
 export class CommunUser {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @ObjectIdColumn()
+  id: ObjectID;
 
   @Column()
   complete_name: string;
