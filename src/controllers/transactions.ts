@@ -1,20 +1,14 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
+import { getMongoRepository } from "typeorm";
 
 import { CommunUser } from "../entity/communUser";
 
 class TransactionsController {
   async store(req: Request, res: Response) {
-    const repository = getRepository(CommunUser);
-    const { wallet } = req.body;
-    const walletValue = repository.findOne({ where: { wallet } });
-    if (wallet > walletValue) {
-      return res.status(400).json({ message: "Insufficient funds" });
-    }
-    const transactionsToSave = repository.create(req.body);
-
-    const transactions = await repository.save(transactionsToSave);
-    return res.status(201).json(transactions);
+    const repository = getMongoRepository(CommunUser);
+    const { id } = req.params;
+    const walletIdentification = repository.findOne({ where: { id } });
+    console.log(walletIdentification);
   }
 }
 
