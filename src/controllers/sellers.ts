@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
+import { getMongoRepository } from "typeorm";
 
 import { Sellers } from "../entity/sellers";
 
 class SellersController {
   async store(req: Request, res: Response) {
-    const repository = getRepository(Sellers);
+    const repository = getMongoRepository(Sellers);
     const { email, cpf } = req.body;
     const sellersExists = await repository.findOne({ where: { email, cpf } });
     if (sellersExists) {
