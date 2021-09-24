@@ -1,20 +1,10 @@
 {
-    "type": "postgres",
+    "type": "mongodb",
     "host": "localhost",
-    "port": 5432,
-    "username": "postgres",
-    "password": "postgres",
+    "port": 27017,
     "database": "picpay",
-    "synchronize": true,
-    "logging": false,
+    "useUnifiedTopology": true,
     "entities": [
        "src/entity/**/*.ts"
-    ],
-    "migrations": [
-       "src/migration/**/*.ts"
-    ],
-    "cli": {
-       "entitiesDir": "src/entity",
-       "migrationsDir": "src/migration"
-    }
- }
+    ]
+}
