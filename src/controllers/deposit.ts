@@ -10,7 +10,7 @@ class DepositController {
     const { value } = req.body;
     const idExist = await repository.findOne(id);
     if (!idExist) {
-      return res.send("Não existe esse ID");
+      return res.send("ID does not exists");
     }
     const walletAccess = idExist.wallet
     const valueSum= walletAccess + value
