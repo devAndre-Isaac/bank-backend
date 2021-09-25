@@ -4,6 +4,6 @@ import TransactionsController from "../controllers/transactions";
 
 const transactionsRouter = Router();
 
-transactionsRouter.post("/picpay/transactions", TransactionsController.store);
+transactionsRouter.post("/picpay/transactions/:id", TransactionsController.store);
 
 export { transactionsRouter };
