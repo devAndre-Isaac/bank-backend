@@ -12,7 +12,7 @@ class TransactionsController {
 
     const identificationAccount = await repository.findOne(sendId);
 
-    const carteiraDele = identificationAccount?.wallet as any;
+    const walletBy = identificationAccount?.wallet as any;
 
     const walletIdentification = await repository.findOne(id);
 
@@ -20,10 +20,10 @@ class TransactionsController {
 
     const { value } = req.body;
 
-    if (carteiraDele < value) {
+    if (walletBy < value) {
       res.send({ Message: "Insufficient funds" });
     }
-    const subValue = carteiraDele - value;
+    const subValue = walletBy - value;
     const replaceSubWallet = { ...identificationAccount, wallet: subValue };
 
     const sumValue = value + wallet;
