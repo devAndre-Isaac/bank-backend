@@ -12,8 +12,7 @@ class DepositController {
     if (!idExist) {
       return res.send("ID does not exists");
     }
-    const walletAccess = idExist.wallet
-    const valueSum= walletAccess + value
+    const valueSum = idExist.wallet + value
     const updateWallet = {...idExist, wallet: valueSum}
     const walletToSave = repository.create(updateWallet);
     const wallet = await repository.save(walletToSave);
