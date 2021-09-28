@@ -16,6 +16,10 @@ class TransactionsController {
 
     const walletIdentification = await repository.findOne(id);
 
+    if(!walletIdentification){
+      return res.send({ Message: "Identification does not exist" });
+    }
+
     const wallet = walletIdentification?.wallet;
 
     const { value } = req.body;
