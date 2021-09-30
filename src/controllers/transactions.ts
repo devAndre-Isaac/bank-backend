@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
-import { CommunUser } from "../entity/communUser";
+import { CommunUser } from "../entity/users";
 
 class TransactionsController {
   async store(req: Request, res: Response) {
@@ -11,6 +11,11 @@ class TransactionsController {
     const { id } = req.params;
 
     const identificationAccount = await repository.findOne(sendId);
+
+    const verify = identificationAccount?.isSeller
+     if(verify === true){
+       return res.sendStatus(401)
+     }
 
     if(!identificationAccount){
       return res.send({ Message: "Identification does not exist" });
