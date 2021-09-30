@@ -16,6 +16,10 @@ app.use(express.json());
 
 app.use(userCommunRouter, transactionsRouter, sellersRouter, adminRouter, depositRouter);
 
+app.get('/', (request, response) => {
+  return response.json({ message: "PayPic - Versão 0.1"})
+})
+
 app.listen(3333, () => {
   console.log(" ⚡ Server started at http://localhost:3333");
 });
