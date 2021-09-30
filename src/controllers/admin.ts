@@ -1,15 +1,9 @@
 import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
-import { CommunUser } from "../entity/communUser";
-import { Sellers } from "../entity/sellers";
+import { CommunUser } from "../entity/users";
 
 class AdminController {
-  async readSeller(req: Request, res: Response) {
-    const repositorySellers = getMongoRepository(Sellers);
-    const sellersToRead = await repositorySellers.findAndCount();
-    return res.json({ sellers: sellersToRead });
-  }
   async readUser(req: Request, res: Response) {
     const repositoryUsers = getMongoRepository(CommunUser);
     const usersToRead = await repositoryUsers.findAndCount();
