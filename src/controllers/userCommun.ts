@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
-import { CommunUser } from "../entity/communUser";
+import { CommunUser } from "../entity/users";
 
 class UserCommunController {
   async store(req: Request, res: Response) {
