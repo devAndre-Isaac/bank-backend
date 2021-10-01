@@ -10,21 +10,20 @@ class TransactionsController {
     const { sendId } = req.body;
     const { id } = req.params;
 
-    const identificationAccount = await repository.findOne(sendId);
+    const identificationAccount = await repository.findOne(id);
 
-    const verify = identificationAccount?.isSeller
-     if(verify === true){
-       return res.sendStatus(401)
-     }
+    const verify = identificationAccount?.isSeller;
+    if (verify === true) {
+      return res.sendStatus(401);
+    }
 
-    if(!identificationAccount){
+    if (!identificationAccount) {
       return res.send({ Message: "Identification does not exist" });
     }
     const walletBy = identificationAccount?.wallet as any;
+    const walletIdentification = await repository.findOne(sendId);
 
-    const walletIdentification = await repository.findOne(id);
-
-    if(!walletIdentification){
+    if (!walletIdentification) {
       return res.send({ Message: "Identification does not exist" });
     }
 
@@ -38,7 +37,7 @@ class TransactionsController {
     const subValue = walletBy - value;
     const replaceSubWallet = { ...identificationAccount, wallet: subValue };
 
-    const sumValue = value + wallet;
+    const sumValue = wallet + value;
     const replaceSumWallet = { ...walletIdentification, wallet: sumValue };
 
     const subToCreate = repository.create(replaceSubWallet);
