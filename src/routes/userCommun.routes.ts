@@ -10,5 +10,6 @@ userCommunRouter.post(
   userValidator,
   UserCommunController.store
 );
+userCommunRouter.put("/picpay/user/update/:id", UserCommunController.update)
 
 export { userCommunRouter };
