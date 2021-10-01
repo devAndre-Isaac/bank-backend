@@ -15,6 +15,18 @@ class UserCommunController {
     const user = await repository.save(userToSave);
     return res.status(201).json(user);
   }
+  async update(req: Request, res: Response) {
+    const repository = getMongoRepository(CommunUser);
+    const { id } = req.params;
+    const idExists = await repository.findOne(id);
+    if (!idExists) {
+      return res.send({ Message: "Identification does not exist" });
+    }
+    const userToUpdate = await repository.update(id, req.body);
+    const userUpdated =  repository.create(userToUpdate as any);
+
+    return res.status(200).json(userUpdated);
+  }
 }
 
 export default new UserCommunController();
