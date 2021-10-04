@@ -5,7 +5,6 @@ import "./database";
 
 import { userCommunRouter } from "./routes/userCommun.routes";
 import { transactionsRouter } from "./routes/transactions.routes";
-import { sellersRouter } from "./routes/sellers.routes";
 import { adminRouter } from "./routes/admin.routes";
 import { depositRouter } from "./routes/deposit.routes";
 import { authRouter } from "./routes/auth.routes";
@@ -18,7 +17,6 @@ app.use(express.json());
 app.use(
   userCommunRouter,
   transactionsRouter,
-  sellersRouter,
   adminRouter,
   depositRouter,
   authRouter
