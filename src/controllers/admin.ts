@@ -16,7 +16,7 @@ class AdminController {
     if (!idReturn) {
       return res.send({ Message: "Identification does not exist" });
     } else {
-      return res.json(idReturn);
+      return res.status(202).json(idReturn);
     }
   }
 }
