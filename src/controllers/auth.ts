@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 import { CommunUser } from "../entity/users";
 import jwt from "jsonwebtoken";
 
-
 class AuthController {
   async authUser(req: Request, res: Response) {
     const repository = getMongoRepository(CommunUser);
