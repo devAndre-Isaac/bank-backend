@@ -8,6 +8,7 @@ import { transactionsRouter } from "./routes/transactions.routes";
 import { sellersRouter } from "./routes/sellers.routes";
 import { adminRouter } from "./routes/admin.routes";
 import { depositRouter } from "./routes/deposit.routes";
+import { authRouter } from "./routes/auth.routes";
 
 const app = express();
 
@@ -19,7 +20,8 @@ app.use(
   transactionsRouter,
   sellersRouter,
   adminRouter,
-  depositRouter
+  depositRouter,
+  authRouter
 );
 
 app.get("/", (request, response) => {
