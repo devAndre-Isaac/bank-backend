@@ -7,7 +7,7 @@ class TransactionsController {
   async store(req: Request, res: Response) {
     const repository = getMongoRepository(CommunUser);
 
-    const { sendId } = req.body;
+    const { cpf_cnpj } = req.body;
     const { id } = req.params;
 
     const identificationAccount = await repository.findOne(id);
@@ -18,42 +18,42 @@ class TransactionsController {
     }
 
     if (!identificationAccount) {
-      return res.send({ Message: "Identification does not exist" });
+      return res.status(401).send({ Message: "Identification does not exist" });
     }
     const walletBy = identificationAccount?.wallet as any;
-    const walletIdentification = await repository.findOne(sendId);
+    const walletIdentification = await repository.findOne({
+      where: { cpf_cnpj },
+    });
 
     if (!walletIdentification) {
-      return res.send({ Message: "Identification does not exist" });
+      return res.status(401).send({ Message: "Identification does not exist" });
     }
 
     const wallet = walletIdentification?.wallet;
 
     const { value } = req.body;
 
-    if (walletBy < value) {
-      res.send({ Message: "Insufficient funds" });
+    const subVerify = walletBy < value;
+
+    if (subVerify === true) {
+      res.status(401).send({ Message: "Insufficient funds" });
+    } else {
+      const subValue = (await walletBy) - value;
+      const replaceSubWallet = { ...identificationAccount, wallet: subValue };
+
+      const sumValue = wallet + value;
+      const replaceSumWallet = { ...walletIdentification, wallet: sumValue };
+
+      const subToCreate = repository.create(replaceSubWallet);
+      const subToSave = await repository.save(subToCreate);
+
+      const sumToCreate = repository.create(replaceSumWallet);
+      const sumToSave = await repository.save(sumToCreate);
+
+      return res
+        .status(201)
+        .json(["LogEvento: ", { TransactionsDataOfSend: subToSave }]);
     }
-    const subValue = walletBy - value;
-    const replaceSubWallet = { ...identificationAccount, wallet: subValue };
-
-    const sumValue = wallet + value;
-    const replaceSumWallet = { ...walletIdentification, wallet: sumValue };
-
-    const subToCreate = repository.create(replaceSubWallet);
-    const subToSave = await repository.save(subToCreate);
-
-    const sumToCreate = repository.create(replaceSumWallet);
-    const sumToSave = await repository.save(sumToCreate);
-
-    return res
-      .status(201)
-      .json([
-        "LogEvento: ",
-        { TransactionsDataOfReceive: sumToSave },
-        { TransactionsDataOfSend: subToSave },
-      ]);
   }
 }
-
 export default new TransactionsController();
