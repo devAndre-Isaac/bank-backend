@@ -9,7 +9,7 @@ class UserCommunController {
     const { email, cpf } = req.body;
     const userExists = await repository.findOne({ where: { email, cpf } });
     if (userExists) {
-      return res.send("Already registered in the system");
+      return res.send("Já registrado no App");
     }
     const userToSave = repository.create(req.body);
     const user = await repository.save(userToSave);
