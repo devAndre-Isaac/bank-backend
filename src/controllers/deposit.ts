@@ -10,7 +10,7 @@ class DepositController {
     const { value } = req.body;
     const idExist = await repository.findOne(id);
     if (!idExist) {
-      return res.send("ID does not exists");
+      return res.status(401).send("ID does not exists");
     }
     if (!value) {
       res.sendStatus(409);
