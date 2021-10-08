@@ -9,7 +9,7 @@ class SellersController {
     const { email, cpf } = req.body;
     const sellersExists = await repository.findOne({ where: { email, cpf } });
     if (sellersExists) {
-      return res.status(401).send("Already registered in the system");
+      return res.status(401).send("Já registrado no App");
     }
     const sellersToSave = repository.create(req.body);
     const sellers = await repository.save(sellersToSave);
