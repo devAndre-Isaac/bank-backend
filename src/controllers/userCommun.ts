@@ -20,7 +20,7 @@ class UserCommunController {
     const { id } = req.params;
     const idExists = await repository.findOne(id);
     if (!idExists) {
-      return res.send({ Message: "Identification does not exist" });
+      return res.status(401).send({ Message: "Identification does not exist" });
     }
     const userToUpdate = await repository.update(id, req.body);
     const userUpdated =  repository.create(userToUpdate as any);
