@@ -10,9 +10,10 @@ import {
 } from "typeorm";
 
 import bcrypt from "bcryptjs";
+
 @Entity("communUser")
 export class CommunUser {
-  @ObjectIdColumn()
+  @ObjectIdColumn('uuid')
   id: ObjectID;
 
   @Column()
