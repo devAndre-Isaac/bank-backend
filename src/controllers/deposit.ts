@@ -13,7 +13,7 @@ class DepositController {
       return res.status(401).send("ID does not exists");
     }
     if (!value) {
-      res.status(409).send("Necesário inserir um valor");
+      res.status(401).send("Necesário inserir um valor");
     }
     const valueSum = idExist.wallet + value;
     const updateWallet = { ...idExist, wallet: valueSum };
