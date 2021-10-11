@@ -27,6 +27,18 @@ class UserCommunController {
 
     return res.status(200).json(userUpdated);
   }
+  async remove(req: Request, res: Response){
+    const repository = getMongoRepository(CommunUser)
+    const { id } = req.params
+    const idExists = await repository.findOne(id);
+    if (!idExists) {
+      return res.status(401).send({ Message: "Identification does not exist" });
+    }
+    const userToRemove = await repository.delete(id) as any;
+    const userRemove =  repository.create(userToRemove as any);
+
+    return res.status(200).json(userRemove);
+  }
 }
 
 export default new UserCommunController();
