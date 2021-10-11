@@ -11,5 +11,7 @@ userCommunRouter.post(
   UserCommunController.store
 );
 userCommunRouter.put("/picpay/user/update/:id", UserCommunController.update)
+userCommunRouter.delete("/picpay/user/remove/:id", UserCommunController.remove)
+
 
 export { userCommunRouter };
