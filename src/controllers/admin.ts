@@ -14,7 +14,7 @@ class AdminController {
     const { id } = req.params;
     const idReturn = await repositoryUsersId.findOne(id);
     if (!idReturn) {
-      return res.status(401).send({ Message: "Identification does not exist" });
+      return res.status(401).send("Identification does not exist");
     } else {
       return res.status(202).json(idReturn);
     }

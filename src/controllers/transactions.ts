@@ -18,7 +18,7 @@ class TransactionsController {
     }
 
     if (!identificationAccount) {
-      return res.status(401).send({ Message: "Identificador necessário" });
+      return res.status(401).send("Identificador necessário");
     }
     const walletBy = identificationAccount?.wallet as any;
     const walletIdentification = await repository.findOne({
@@ -26,7 +26,7 @@ class TransactionsController {
     });
 
     if (!walletIdentification) {
-      return res.status(401).send({ Message: "CPF ou CNPJ não existe" });
+      return res.status(401).send("CPF ou CNPJ não existe");
     }
 
     const wallet = walletIdentification?.wallet;
@@ -36,7 +36,7 @@ class TransactionsController {
     const subVerify = walletBy < value;
 
     if (subVerify === true) {
-      res.status(401).send({ Message: "Saldo Insuficiente" });
+      res.status(401).send("Saldo Insuficiente");
     } else {
       const subValue = (await walletBy) - value;
       const replaceSubWallet = { ...identificationAccount, wallet: subValue };
