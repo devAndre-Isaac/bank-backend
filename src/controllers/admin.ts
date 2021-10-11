@@ -11,8 +11,8 @@ class AdminController {
   }
   async readUserById(req: Request, res: Response) {
     const repositoryUsersId = getMongoRepository(CommunUser);
-    const { _id } = req.params;
-    const idReturn = await repositoryUsersId.findOne(_id);
+    const { id } = req.params;
+    const idReturn = await repositoryUsersId.findOne(id);
     if (!idReturn) {
       return res.status(401).send({ Message: "Identification does not exist" });
     } else {
