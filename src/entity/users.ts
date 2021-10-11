@@ -13,7 +13,7 @@ import bcrypt from "bcryptjs";
 
 @Entity("communUser")
 export class CommunUser {
-  @ObjectIdColumn('uuid')
+  @ObjectIdColumn()
   id: ObjectID;
 
   @Column()
