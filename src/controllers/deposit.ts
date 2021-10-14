@@ -11,10 +11,10 @@ class DepositController {
     const { value } = req.body;
     const idExist = await repository.findOne(id);
     if (!idExist) {
-      throw new HttpError(401, "Identificador não encontrado");
+      res.status(401).send("Identificar não encontrado");
     }
     if (!value) {
-      throw new HttpError(401, "Necessário inserir um valor");
+      res.status(401).send("Necessário inserir um valor");
     }
     const valueSum = idExist.wallet + value;
     const updateWallet = { ...idExist, wallet: valueSum };
