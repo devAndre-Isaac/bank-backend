@@ -11,6 +11,8 @@ adminRouter.get("/picpay/admin/user", AdminController.readUser);
 adminRouter.get(
   "/picpay/admin/user/report",
   (request: Request, response: Response) => {
+    //Insert find() of orm 23:30
+
     const fonts = {
       Helvetica: {
         normal: "Helvetica",
@@ -27,8 +29,22 @@ adminRouter.get(
     };
 
     const pdfDoc = printer.createPdfKitDocument(docDefinitions);
-    pdfDoc.pipe(fs.createWriteStream("Relatorio.pdf"));
+
+    // pdfDoc.pipe(fs.createWriteStream("Relatorio.pdf"));
+
+    const chunks: any = [];
+
+    pdfDoc.on("data", (chunk) => {
+      chunks.push(chunk);
+    });
+
     pdfDoc.end();
+
+    pdfDoc.on("end", () => {
+      const result = Buffer.concat(chunks);
+      response.end(result);
+    });
+
     response.send("relatorio concluido");
   }
 );
