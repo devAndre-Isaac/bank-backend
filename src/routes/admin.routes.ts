@@ -1,17 +1,19 @@
 import { Router, Request, Response } from "express";
-
-import AdminController from "../controllers/admin";
-import fs from "fs";
+import { getMongoRepository } from "typeorm";
 import PDFPrinter from "pdfmake";
 import { TDocumentDefinitions } from "pdfmake/interfaces";
+
+import { CommunUser } from "../entity/users";
+import AdminController from "../controllers/admin";
 
 const adminRouter = Router();
 
 adminRouter.get("/picpay/admin/user", AdminController.readUser);
 adminRouter.get(
   "/picpay/admin/user/report",
-  (request: Request, response: Response) => {
-    //Insert find() of orm 23:30
+  async (request: Request, response: Response) => {
+    const repositoryUsers = getMongoRepository(CommunUser);
+    const usersToRead = await repositoryUsers.find();
 
     const fonts = {
       Helvetica: {
@@ -23,14 +25,28 @@ adminRouter.get(
     };
     const printer = new PDFPrinter(fonts);
 
+    const body = [];
+
+    for await (let usersToReads of usersToRead as any) {
+      const rows = new Array();
+      rows.push(usersToReads._id);
+      rows.push(usersToReads.complete_name);
+      rows.push(usersToReads.cpf_cnpj);
+
+      body.push(rows);
+    }
+
     const docDefinitions: TDocumentDefinitions = {
       defaultStyle: { font: "Helvetica" },
-      content: [{ text: "My firts relatory from code drops" }],
+      content: [
+        {
+          table: {
+            body: [["_id", "complete_name", "cpf_cnpj", ...body]],
+          },
+        },
+      ],
     };
-
     const pdfDoc = printer.createPdfKitDocument(docDefinitions);
-
-    // pdfDoc.pipe(fs.createWriteStream("Relatorio.pdf"));
 
     const chunks: any = [];
 
@@ -44,8 +60,6 @@ adminRouter.get(
       const result = Buffer.concat(chunks);
       response.end(result);
     });
-
-    response.send("relatorio concluido");
   }
 );
 adminRouter.get("/picpay/admin/user/:id", AdminController.readUserById);
