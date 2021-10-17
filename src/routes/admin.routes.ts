@@ -32,6 +32,7 @@ adminRouter.get(
       rows.push(usersToReads._id);
       rows.push(usersToReads.complete_name);
       rows.push(usersToReads.cpf_cnpj);
+      rows.push(usersToReads.email);
 
       body.push(rows);
     }
@@ -41,7 +42,7 @@ adminRouter.get(
       content: [
         {
           table: {
-            body: [["_id", "complete_name", "cpf_cnpj", ...body]],
+            body: [["_id", "complete_name", "cpf_cnpj", "email", ...body]],
           },
         },
       ],
