@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
 import { CommunUser } from "../entity/users";
+import { TransactionToReport } from "../middlewares/transactionsToReport";
 
 class TransactionsController {
   async store(req: Request, res: Response) {
@@ -49,6 +50,10 @@ class TransactionsController {
 
       const sumToCreate = repository.create(replaceSumWallet);
       const sumToSave = await repository.save(sumToCreate);
+
+      const data = subToSave.created_at
+ 
+        const shareToMiddle =  TransactionToReport(id, cpf_cnpj, value, data)
 
       return res
         .status(201)
