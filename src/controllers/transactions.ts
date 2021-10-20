@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
+import { Transactions } from "../entity/transactions";
+
 import { CommunUser } from "../entity/users";
 import { TransactionToReport } from "../middlewares/transactionsToReport";
 
@@ -49,15 +51,27 @@ class TransactionsController {
       const subToSave = await repository.save(subToCreate);
 
       const sumToCreate = repository.create(replaceSumWallet);
-      const sumToSave = await repository.save(sumToCreate);
+      await repository.save(sumToCreate);
 
-      const data = subToSave.created_at
- 
-        const shareToMiddle =  TransactionToReport(id, cpf_cnpj, value, data)
+      subToSave.created_at;
+
+      TransactionToReport(id, cpf_cnpj, value);
 
       return res
         .status(201)
         .json(["LogEvento: ", { TransactionsDataOfSend: subToSave }]);
+    }
+  }
+  async viewOne(req: Request, res: Response) {
+    const repositoryUsersId = getMongoRepository(Transactions);
+    const { from_who_cpf } = req.params;
+    const trasactionsByCpfReturn = await repositoryUsersId.find({
+      from_who_cpf,
+    } as any);
+    if (!trasactionsByCpfReturn) {
+      return res.status(401).send("Identification does not exist");
+    } else {
+      return res.status(202).json(trasactionsByCpfReturn);
     }
   }
 }
