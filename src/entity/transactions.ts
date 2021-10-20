@@ -12,10 +12,13 @@ export class Transactions {
   id: ObjectID;
 
   @Column()
+  from_who_cpf: string;
+
+  @Column()
   from_who: string;
 
   @Column()
-  for_who: string;
+  to_who: string;
 
   @Column()
   value: string;
