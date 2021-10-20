@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
 import { CommunUser } from "../entity/users";
-import { HttpError } from "../validator/errors/HttpError";
-
 class DepositController {
   async store(req: Request, res: Response) {
     const repository = getMongoRepository(CommunUser);
