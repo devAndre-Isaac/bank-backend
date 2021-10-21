@@ -1,5 +1,5 @@
 import { getMongoRepository } from "typeorm";
-import { Transactions } from "../entity/transactions";
+import { Movimentations } from "../entity/movimentations";
 import { CommunUser } from "../entity/users";
 
 export const TransactionToReport = async (
@@ -7,7 +7,7 @@ export const TransactionToReport = async (
   cpf_cnpj: string,
   value: number
 ) => {
-  const repositorySave = getMongoRepository(Transactions);
+  const repositorySave = getMongoRepository(Movimentations);
   const verifyRepositoryUser = getMongoRepository(CommunUser);
 
   const verifyIdentification = await verifyRepositoryUser.findOne(id);
@@ -27,7 +27,8 @@ export const TransactionToReport = async (
     from_who,
     to_who,
     value,
+    type: 'transaction'
   } as any);
 
-  const userToSave = repositorySave.save(userToCreate);
+  repositorySave.save(userToCreate);
 };
