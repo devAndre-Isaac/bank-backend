@@ -21,7 +21,7 @@ class AdminController {
       return res.status(202).json(idReturn);
     }
   }
-  async pdfUserGenerate(req: Request, res: Response ){
+  async pdfUserGenerate(req: Request, res: Response) {
     const repositoryUsers = getMongoRepository(CommunUser);
     const usersToRead = await repositoryUsers.find();
 

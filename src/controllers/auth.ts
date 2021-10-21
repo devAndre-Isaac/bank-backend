@@ -10,7 +10,7 @@ class AuthController {
     const { email, password } = req.body;
     const validUser = await repository.findOne({ where: { email } });
     if (!validUser) {
-     res.status(401).send("Email incorreto");
+      res.status(401).send("Email incorreto");
     }
     const validPassword = await bcrypt.compare(password, validUser.password);
     if (!validPassword) {

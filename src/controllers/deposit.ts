@@ -17,7 +17,7 @@ class DepositController {
       res.status(401).send("Necessário inserir um valor");
     }
 
-    DepositToReport(id, value)
+    DepositToReport(id, value);
 
     const valueSum = idExist.wallet + value;
     const updateWallet = { ...idExist, wallet: valueSum };

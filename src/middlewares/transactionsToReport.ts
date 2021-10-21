@@ -27,7 +27,7 @@ export const TransactionToReport = async (
     from_who,
     to_who,
     value,
-    type: 'transaction'
+    type: "transaction",
   } as any);
 
   repositorySave.save(userToCreate);
