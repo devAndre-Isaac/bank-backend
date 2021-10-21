@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
-import { Transactions } from "../entity/transactions";
+import { Movimentations } from "../entity/movimentations";
 
 import { CommunUser } from "../entity/users";
 import { TransactionToReport } from "../middlewares/transactionsToReport";
@@ -63,7 +63,7 @@ class TransactionsController {
     }
   }
   async viewOne(req: Request, res: Response) {
-    const repositoryUsersId = getMongoRepository(Transactions);
+    const repositoryUsersId = getMongoRepository(Movimentations);
     const { from_who_cpf } = req.params;
     const trasactionsByCpfReturn = await repositoryUsersId.find({
       from_who_cpf,
