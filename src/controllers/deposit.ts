@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
 import { CommunUser } from "../entity/users";
+import { DepositToReport } from "../middlewares/depositToReport";
+
 class DepositController {
   async store(req: Request, res: Response) {
     const repository = getMongoRepository(CommunUser);
@@ -14,6 +16,9 @@ class DepositController {
     if (!value) {
       res.status(401).send("Necessário inserir um valor");
     }
+
+    DepositToReport(id, value)
+
     const valueSum = idExist.wallet + value;
     const updateWallet = { ...idExist, wallet: valueSum };
     const walletToSave = repository.create(updateWallet);
