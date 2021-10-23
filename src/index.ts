@@ -10,7 +10,7 @@ import { transactionsRouter } from "./routes/transactions.routes";
 import { adminRouter } from "./routes/admin.routes";
 import { depositRouter } from "./routes/deposit.routes";
 import { authRouter } from "./routes/auth.routes";
-import { emailRouter } from "./routes/email.routes";
+// import { emailRouter } from "./routes/email.routes";
 
 const app = express();
 
@@ -23,9 +23,8 @@ app.use(
   transactionsRouter,
   adminRouter,
   depositRouter,
-  authRouter,
-  emailRouter
-);
+  authRouter
+  );
 
 app.get("/", (request, response) => {
   return response.json({ message: "PayPic - Versão 0.1" });
