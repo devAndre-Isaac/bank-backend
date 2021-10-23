@@ -2,15 +2,19 @@ import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import "./database";
+import * as bodyParser from "body-parser";
+
 
 import { userCommunRouter } from "./routes/userCommun.routes";
 import { transactionsRouter } from "./routes/transactions.routes";
 import { adminRouter } from "./routes/admin.routes";
 import { depositRouter } from "./routes/deposit.routes";
 import { authRouter } from "./routes/auth.routes";
+import { emailRouter } from "./routes/email.routes";
 
 const app = express();
 
+app.use(bodyParser.json())
 app.use(cors());
 app.use(express.json());
 
@@ -19,7 +23,8 @@ app.use(
   transactionsRouter,
   adminRouter,
   depositRouter,
-  authRouter
+  authRouter,
+  emailRouter
 );
 
 app.get("/", (request, response) => {
