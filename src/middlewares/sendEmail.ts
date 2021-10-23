@@ -1,46 +1,37 @@
-
 import * as nodemailer from "nodemailer";
-import config from '../../src/validator/config';
+import { getMongoRepository } from "typeorm";
+import config from "../../src/validator/config";
+import { CommunUser } from "../entity/users";
 
-  class Mail {
+export const mailToSend = async (cpf_cnpj: string) => {
+  const repository = getMongoRepository(CommunUser);
+  const verifyMail = repository.findOne({
+    where: { cpf_cnpj },
+  });
 
-    constructor(
-        public to?: string,
-        public subject?: string,
-        public message?: string) { }
+  const mailTo = (await verifyMail).email;
 
+  const transporter = nodemailer.createTransport({
+    host: config.host,
+    port: config.port,
+    secure: false,
+    auth: {
+      user: config.user,
+      pass: config.pass,
+    },
+    logger: true,
+    tls: { rejectUnauthorized: false },
+  });
 
-    async sendMail() {
+  async function run() {
+    const mailSent = await transporter.sendMail({
+      from: "devandreisaac@gmail.com",
+      to: mailTo,
+      subject: "Você Recebeu uma Transferência",
+      html: "Teste de envio de e-mail by: Tidé (the GOD of Programming)",
+    });
+    console.log(mailSent);
+  }
 
-        let mailOptions = {
-            from: "devandreisaac@gmail.com",
-            to: this.to,
-            subject: this.subject,
-            html: this.message
-        };
-
-        const transporter = nodemailer.createTransport({
-            host: config.host,
-            port: config.port,
-            secure: false,
-            auth: {
-                user: config.user,
-                pass: config.pass
-            },
-            logger: true,
-            tls: { rejectUnauthorized: false }
-        });
-
-         transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                return error;
-            } else {
-                return "E-mail enviado com sucesso!";
-            }
-        });
-    }
-
-
-}
-
-export default new Mail;
+  run();
+};
