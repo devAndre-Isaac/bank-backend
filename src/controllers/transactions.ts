@@ -4,6 +4,7 @@ import { getMongoRepository } from "typeorm";
 import { Movimentations } from "../entity/movimentations";
 
 import { CommunUser } from "../entity/users";
+import { mailToSend } from "../middlewares/sendEmail";
 import { TransactionToReport } from "../middlewares/transactionsToReport";
 
 class TransactionsController {
@@ -55,6 +56,7 @@ class TransactionsController {
 
       subToSave.created_at;
 
+      mailToSend(cpf_cnpj)
       TransactionToReport(id, cpf_cnpj, value);
 
       return res
