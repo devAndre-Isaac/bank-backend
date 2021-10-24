@@ -56,7 +56,7 @@ class TransactionsController {
 
       subToSave.created_at;
 
-      mailToSend(cpf_cnpj)
+      mailToSend(cpf_cnpj, value, id);
       TransactionToReport(id, cpf_cnpj, value);
 
       return res
