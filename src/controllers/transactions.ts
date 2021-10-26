@@ -76,5 +76,16 @@ class TransactionsController {
       return res.status(202).json(trasactionsByCpfReturn);
     }
   }
+  async viewTransactionById(req: Request, res: Response) {
+    const repository = getMongoRepository(Movimentations);
+    const { id } = req.params;
+    const viewById = await repository.findOne(id);
+    if (!viewById) {
+      return res
+        .status(401)
+        .send("Identificador não existente na base de dados");
+    }
+    return res.status(202).json(viewById);
+  }
 }
 export default new TransactionsController();
