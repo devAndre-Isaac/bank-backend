@@ -36,7 +36,8 @@ export const mailToSend = async (
       from: "devandreisaac@gmail.com",
       to: mailTo,
       subject: "Você Recebeu uma Transferência",
-      html: `<h1>Olá ${nameEmail},</h1>
+      html: `
+      <h1>Olá ${nameEmail},</h1>
        <h3>Você recebeu uma transferência de ${selectName} no valor de: R$${value}</h3>`,
     });
   }
