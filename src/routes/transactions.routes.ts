@@ -13,4 +13,6 @@ transactionsRouter.get(
   TransactionsController.viewOne
 );
 
+transactionsRouter.get("/picpay/transactions/view/:id", TransactionsController.viewTransactionById)
+
 export { transactionsRouter };
