@@ -9,9 +9,15 @@ transactionsRouter.post(
   TransactionsController.store
 );
 transactionsRouter.get(
-  "/picpay/transactions/log/:from_who_cpf",
-  TransactionsController.viewOne
+  "/picpay/transactions/log/send/:from_who_cpf",
+  TransactionsController.viewMovimentationOfSendTransaction
 );
+
+transactionsRouter.get(
+  "/picpay/transactions/log/receive/:to_who_cpf",
+  TransactionsController.viewMovimentationOfReceiveTransaction
+);
+
 
 transactionsRouter.get("/picpay/transactions/view/:id", TransactionsController.viewTransactionById)
 
