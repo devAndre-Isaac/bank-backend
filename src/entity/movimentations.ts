@@ -21,6 +21,9 @@ export class Movimentations {
   to_who: string;
 
   @Column()
+  to_who_cpf: string;
+
+  @Column()
   value: string;
 
   @Column()
