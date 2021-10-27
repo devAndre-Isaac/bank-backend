@@ -21,11 +21,13 @@ export const TransactionToReport = async (
   });
 
   const to_who = verifyCpf.complete_name;
+  const to_who_cpf = verifyCpf.cpf_cnpj;
 
   const userToCreate = repositorySave.create({
     from_who_cpf,
     from_who,
     to_who,
+    to_who_cpf,
     value,
     type: "transaction",
   } as any);
