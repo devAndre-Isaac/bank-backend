@@ -64,12 +64,26 @@ class TransactionsController {
         .json(["LogEvento: ", { TransactionsDataOfSend: subToSave }]);
     }
   }
-  async viewOne(req: Request, res: Response) {
+  async viewMovimentationOfSendTransaction(req: Request, res: Response) {
     const repositoryUsersId = getMongoRepository(Movimentations);
     const { from_who_cpf } = req.params;
     const trasactionsByCpfReturn = await repositoryUsersId.find({
       from_who_cpf,
     } as any);
+
+    if (!trasactionsByCpfReturn) {
+      return res.status(401).send("Identification does not exist");
+    } else {
+      return res.status(202).json(trasactionsByCpfReturn);
+    }
+  }
+  async viewMovimentationOfReceiveTransaction(req: Request, res: Response) {
+    const repositoryUsersId = getMongoRepository(Movimentations);
+    const { to_who_cpf } = req.params;
+    const trasactionsByCpfReturn = await repositoryUsersId.find({
+      to_who_cpf,
+    } as any);
+
     if (!trasactionsByCpfReturn) {
       return res.status(401).send("Identification does not exist");
     } else {
