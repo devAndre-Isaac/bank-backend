@@ -18,7 +18,9 @@ transactionsRouter.get(
   TransactionsController.viewMovimentationOfReceiveTransaction
 );
 
-
-transactionsRouter.get("/picpay/transactions/view/:id", TransactionsController.viewTransactionById)
+transactionsRouter.get(
+  "/picpay/transactions/view/:id",
+  TransactionsController.viewTransactionById
+);
 
 export { transactionsRouter };
