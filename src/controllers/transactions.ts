@@ -6,7 +6,7 @@ import { Movimentations } from "../entity/movimentations";
 import { CommunUser } from "../entity/users";
 import { mailToSend } from "../middlewares/sendEmail";
 import { TransactionToReport } from "../middlewares/transactionsToReport";
-import { consultAuthServiceOfMail } from "../utils/authApis";
+import { consultAuthServiceOfMail, consultAuthServiceOfTransactions } from "../utils/authApis";
 
 class TransactionsController {
   async store(req: Request, res: Response) {
@@ -29,6 +29,12 @@ class TransactionsController {
     const walletIdentification = await repository.findOne({
       where: { cpf_cnpj },
     });
+
+    const consultServiceApiOfTransaction = await consultAuthServiceOfTransactions()
+
+    if(consultServiceApiOfTransaction.message !== 'Autorizado'){
+        return res.status(401).send('Serviço autorizador de transferência fechado')
+    }
 
     if (!walletIdentification) {
       return res.status(401).send("CPF ou CNPJ não existe");
