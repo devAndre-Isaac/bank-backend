@@ -1,7 +1,7 @@
 import * as nodemailer from "nodemailer";
 import { getMongoRepository } from "typeorm";
 
-import config from "../../src/validator/config";
+import config from "../utils/config";
 import { CommunUser } from "../entity/users";
 
 export const mailToSend = async (
