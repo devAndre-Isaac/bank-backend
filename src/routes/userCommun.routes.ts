@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { userValidator } from "../validator/validation";
+import { userValidator } from "../utils/validation";
 
 import UserCommunController from "../controllers/userCommun";
 
