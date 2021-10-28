@@ -6,6 +6,7 @@ import { Movimentations } from "../entity/movimentations";
 import { CommunUser } from "../entity/users";
 import { mailToSend } from "../middlewares/sendEmail";
 import { TransactionToReport } from "../middlewares/transactionsToReport";
+import { consultAuthServiceOfMail } from "../utils/authApis";
 
 class TransactionsController {
   async store(req: Request, res: Response) {
@@ -56,7 +57,12 @@ class TransactionsController {
 
       subToSave.created_at;
 
-      mailToSend(cpf_cnpj, value, id);
+      const consultService = await consultAuthServiceOfMail()
+
+      if(consultService.message === 'Success'){
+          mailToSend(cpf_cnpj, value, id);
+      }
+
       TransactionToReport(id, cpf_cnpj, value);
 
       return res
