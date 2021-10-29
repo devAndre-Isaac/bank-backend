@@ -3,11 +3,16 @@ import { getMongoRepository } from "typeorm";
 import bcrypt from "bcryptjs";
 import { CommunUser } from "../entity/users";
 import jwt from "jsonwebtoken";
+import { auth } from "../utils/validations";
 
 class AuthController {
   async authUser(req: Request, res: Response) {
     const repository = getMongoRepository(CommunUser);
-    const { email, password } = req.body;
+    const body = await auth.validate(req.body, {
+      abortEarly: false,
+      stripUnknown: true,
+    });
+    const { email, password } = body;
     const validUser = await repository.findOne({ where: { email } });
     if (!validUser) {
       res.status(401).send("Email incorreto");
