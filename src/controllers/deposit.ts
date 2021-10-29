@@ -3,12 +3,19 @@ import { getMongoRepository } from "typeorm";
 
 import { CommunUser } from "../entity/users";
 import { DepositToReport } from "../middlewares/depositToReport";
+import { sendDepositSchema } from "../utils/validations";
 
 class DepositController {
   async store(req: Request, res: Response) {
     const repository = getMongoRepository(CommunUser);
+
+    const body = await sendDepositSchema.validate(req.body, {
+      abortEarly: false,
+      stripUnknown: true,
+    });
+
     const { id } = req.params;
-    const { value } = req.body;
+    const { value } = body;
     const idExist = await repository.findOne(id);
     if (!idExist) {
       res.status(401).send("Identificar não encontrado");
