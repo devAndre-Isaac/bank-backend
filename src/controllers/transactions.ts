@@ -7,12 +7,18 @@ import { CommunUser } from "../entity/users";
 import { mailToSend } from "../middlewares/sendEmail";
 import { TransactionToReport } from "../middlewares/transactionsToReport";
 import { consultAuthServiceOfMail, consultAuthServiceOfTransactions } from "../utils/authApis";
+import { sendTransactionSchema } from "../utils/validations";
 
 class TransactionsController {
   async store(req: Request, res: Response) {
     const repository = getMongoRepository(CommunUser);
 
-    const { cpf_cnpj } = req.body;
+    const body = await sendTransactionSchema.validate(req.body, {
+      abortEarly: false,
+      stripUnknown: true,
+    });
+
+    const { cpf_cnpj } = body;
     const { id } = req.params;
 
     const identificationAccount = await repository.findOne(id);
@@ -42,7 +48,7 @@ class TransactionsController {
 
     const wallet = walletIdentification?.wallet;
 
-    const { value } = req.body;
+    const { value } = body;
 
     const subVerify = walletBy < value;
 
@@ -63,11 +69,11 @@ class TransactionsController {
 
       subToSave.created_at;
 
-      const consultService = await consultAuthServiceOfMail();
+      // const consultService = await consultAuthServiceOfMail();
 
-      if (consultService.message === "Success") {
-        mailToSend(cpf_cnpj, value, id);
-      }
+      // if (consultService.message === "Success") {
+      //   mailToSend(cpf_cnpj, value, id);
+      // }
 
       TransactionToReport(id, cpf_cnpj, value);
 
