@@ -69,11 +69,11 @@ class TransactionsController {
 
       subToSave.created_at;
 
-      // const consultService = await consultAuthServiceOfMail();
+      const consultService = await consultAuthServiceOfMail();
 
-      // if (consultService.message === "Success") {
-      //   mailToSend(cpf_cnpj, value, id);
-      // }
+      if (consultService.message === "Success") {
+        mailToSend(cpf_cnpj, value, id);
+      }
 
       TransactionToReport(id, cpf_cnpj, value);
 
