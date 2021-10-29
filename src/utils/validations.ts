@@ -14,3 +14,11 @@ export const sendTransactionSchema = yup.object().shape({
   value: yup.number().strict(true).required(),
 });
 
+export const sendDepositSchema = yup.object().shape({
+  value: yup.number().strict(true).required(),
+});
+
+export const auth = yup.object().shape({
+  email: yup.string().strict(true).required(),
+  password: yup.string().strict(true).required(),
+});
