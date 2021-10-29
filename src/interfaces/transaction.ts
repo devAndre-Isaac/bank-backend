@@ -15,3 +15,8 @@ export interface CreateUser {
   wallet: Number;
   isSeller: boolean;
 }
+
+export interface AuthUser{
+    email: string
+    password: string
+}
