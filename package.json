@@ -23,6 +23,7 @@
     "@types/jsonwebtoken": "^8.5.5",
     "@types/mongodb": "^4.0.7",
     "@types/node": "^16.7.10",
+    "@types/yup": "^0.29.13",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
@@ -36,6 +37,7 @@
     "pdfmake": "^0.2.2",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.37",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   }
 }
