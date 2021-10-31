@@ -47,6 +47,22 @@ class UserCommunController {
 
     return res.status(200).json(userRemove);
   }
+  async passUpdate(req: Request, res: Response) {
+    const repository = getMongoRepository(CommunUser);
+    const { id } = req.params;
+    const idExists = await repository.findOne(id);
+    const body = await createUserSchema.validate(req.body, {
+      abortEarly: false,
+      stripUnknown: true,
+    });
+    if (!idExists) {
+      return res.status(401).send("Identification does not exist");
+    }
+    const userToUpdate = await repository.update(id, body);
+    const userUpdated = repository.create(userToUpdate as any);
+
+    return res.status(200).json(userUpdated);
+  }
 }
 
 export default new UserCommunController();
