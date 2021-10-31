@@ -21,9 +21,16 @@ class AuthController {
     if (!validPassword) {
       res.status(401).send("Senha incorreto");
     }
-    const token = jwt.sign({ id: validUser.id }, "secret", {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      {
+        email: validUser.email,
+      },
+      "4f93ac9d10cb751b8c9c646bc9dbccb9",
+      {
+        subject: validUser.id,
+        expiresIn: "1d",
+      } as any
+    );
     return res.json({ validUser, token });
   }
 }
