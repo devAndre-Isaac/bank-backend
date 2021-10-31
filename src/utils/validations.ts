@@ -22,3 +22,8 @@ export const auth = yup.object().shape({
   email: yup.string().strict(true).required(),
   password: yup.string().strict(true).required(),
 });
+
+export const updateUserPassSchema = yup.object().shape({
+  email: yup.string().strict(true).required(),
+  password: yup.string().strict(true).required(),
+});
