@@ -10,7 +10,14 @@ userCommunRouter.post(
   userValidator,
   UserCommunController.store
 );
-userCommunRouter.put("/picpay/user/update/:id", UserCommunController.update);
+userCommunRouter.put(
+  "/picpay/user/update/all/:id",
+  UserCommunController.update
+);
+userCommunRouter.put(
+  "/picpay/user/update/pass/:id",
+  UserCommunController.passUpdate
+);
 userCommunRouter.delete("/picpay/user/remove/:id", UserCommunController.remove);
 
 export { userCommunRouter };
