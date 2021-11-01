@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
 import { CommunUser } from "../entity/users";
-import { createUserSchema } from "../utils/validations";
+import { createUserSchema, updateUserPassSchema } from "../utils/validations";
 
 class UserCommunController {
   async store(req: Request, res: Response) {
@@ -51,7 +51,7 @@ class UserCommunController {
     const repository = getMongoRepository(CommunUser);
     const { id } = req.params;
     const idExists = await repository.findOne(id);
-    const body = await createUserSchema.validate(req.body, {
+    const body = await updateUserPassSchema.validate(req.body, {
       abortEarly: false,
       stripUnknown: true,
     });
