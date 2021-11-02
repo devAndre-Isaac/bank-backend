@@ -25,7 +25,7 @@ class TransactionsController {
 
     const verify = identificationAccount?.isSeller;
     if (verify === true) {
-      return res.sendStatus(401);
+      return res.status(401).send('Erro');
     }
 
     if (!identificationAccount) {
@@ -53,7 +53,7 @@ class TransactionsController {
     const subVerify = walletBy < value;
 
     if (subVerify === true) {
-      res.status(401).send("Saldo Insuficiente");
+       return res.status(401).send("Saldo Insuficiente");
     } else {
       const subValue = (await walletBy) - value;
       const replaceSubWallet = { ...identificationAccount, wallet: subValue };

@@ -18,10 +18,10 @@ class DepositController {
     const { value } = body;
     const idExist = await repository.findOne(id);
     if (!idExist) {
-      res.status(401).send("Identificar não encontrado");
+      return res.status(401).send("Identificar não encontrado");
     }
     if (!value) {
-      res.status(401).send("Necessário inserir um valor");
+      return res.status(401).send("Necessário inserir um valor");
     }
 
     DepositToReport(id, value);

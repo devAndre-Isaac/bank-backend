@@ -15,7 +15,7 @@ export default function authMiddleware(
   const { authorization } = req.headers;
 
   if (!authorization) {
-    return res.sendStatus(401);
+    return res.status(401).send('token invalido');
   }
   const token = authorization.replace("Bearer", "").trim();
 
@@ -28,6 +28,6 @@ export default function authMiddleware(
 
     return next();
   } catch {
-    return res.sendStatus(401);
+    return res.status(401).send('token invalido');
   }
 }
