@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
@@ -13,13 +14,24 @@ class UserCommunController {
       stripUnknown: true,
     });
 
-    const { email, cpf_cnpj } = body;
+    const { complete_name, email, cpf_cnpj, password, wallet, isSeller } = body;
     const userExists = await repository.findOne({ where: { email, cpf_cnpj } });
 
     if (userExists) {
       return res.status(401).send("Credenciais já registradas no App");
     }
-    const userToSave = repository.create(body);
+
+    const passwordHash = await hash(password, 8);
+
+    const userToSave = repository.create({
+      wallet,
+      complete_name,
+      cpf_cnpj,
+      email,
+      isSeller,
+      password: passwordHash,
+    } as any);
+
     const user = await repository.save(userToSave);
     return res.status(201).json(user);
   }
