@@ -9,8 +9,6 @@ import {
   ObjectID,
 } from "typeorm";
 
-import bcrypt from "bcryptjs";
-
 @Entity("communUser")
 export class CommunUser {
   @ObjectIdColumn()
@@ -27,12 +25,6 @@ export class CommunUser {
 
   @Column()
   password: string;
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  hashPassword() {
-    this.password = bcrypt.hashSync(this.password, 8);
-  }
 
   @Column()
   wallet: number;
