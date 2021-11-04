@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getMongoRepository } from "typeorm";
 
 import { CommunUser } from "../entity/users";
-import { DepositToReport } from "../middlewares/depositToReport";
+import { DepositToReport } from "../services/depositToReport";
 import { sendDepositSchema } from "../utils/validations";
 
 class DepositController {

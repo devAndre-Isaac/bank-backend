@@ -4,8 +4,8 @@ import { getMongoRepository } from "typeorm";
 import { Movimentations } from "../entity/movimentations";
 
 import { CommunUser } from "../entity/users";
-import { mailToSend } from "../middlewares/sendEmail";
-import { TransactionToReport } from "../middlewares/transactionsToReport";
+import { mailToSend } from "../services/sendEmail";
+import { TransactionToReport } from "../services/transactionsToReport";
 import { consultAuthServiceOfMail, consultAuthServiceOfTransactions } from "../utils/authApis";
 import { sendTransactionSchema } from "../utils/validations";
 
