@@ -5,7 +5,8 @@ import { CommunUser } from "../entity/users";
 export const TransactionToReport = async (
   id: string,
   cpf_cnpj: string,
-  value: number
+  value: number,
+  description: string
 ) => {
   const repositorySave = getMongoRepository(Movimentations);
   const verifyRepositoryUser = getMongoRepository(CommunUser);
@@ -29,6 +30,7 @@ export const TransactionToReport = async (
     to_who,
     to_who_cpf,
     value,
+    description,
     type: "transaction",
   } as any);
 
