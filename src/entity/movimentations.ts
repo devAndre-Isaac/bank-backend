@@ -4,6 +4,7 @@ import {
   ObjectIdColumn,
   ObjectID,
   CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 @Entity("movimentations")
@@ -29,6 +30,12 @@ export class Movimentations {
   @Column()
   type: string;
 
+  @Column()
+  description: string
+
   @CreateDateColumn()
-  date: Date;
+  created_at: Date;
+
+  @UpdateDateColumn()
+  update_at: Date;
 }
