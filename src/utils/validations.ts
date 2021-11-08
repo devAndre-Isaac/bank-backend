@@ -12,6 +12,7 @@ export const createUserSchema = yup.object().shape({
 export const sendTransactionSchema = yup.object().shape({
   cpf_cnpj: yup.string().strict(true).required(),
   value: yup.number().strict(true).required(),
+  description: yup.string().strict(true),
 });
 
 export const sendDepositSchema = yup.object().shape({
