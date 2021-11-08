@@ -18,7 +18,7 @@ class TransactionsController {
       stripUnknown: true,
     });
 
-    const { cpf_cnpj } = body;
+    const { cpf_cnpj, description } = body;
     const { id } = req.params;
 
     const identificationAccount = await repository.findOne(id);
@@ -75,7 +75,7 @@ class TransactionsController {
         mailToSend(cpf_cnpj, value, id);
       }
 
-      TransactionToReport(id, cpf_cnpj, value);
+      TransactionToReport(id, cpf_cnpj, value, description);
 
       return res
         .status(201)
