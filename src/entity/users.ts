@@ -12,23 +12,23 @@ export class CommunUser {
   @ObjectIdColumn()
   id: ObjectID;
 
-  @Column()
+  @Column({ nullable: false })
   complete_name: string;
 
-  @Column()
+  @Column({ nullable: false })
   cpf_cnpj: string;
 
-  @Column()
+  @Column({ nullable: false })
   email: string;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
-  @Column()
-  wallet: number;
+  @Column({ nullable: false, default: 0 })
+  wallet: number = 0;
 
-  @Column()
-  isSeller: boolean
+  @Column({ nullable: false })
+  isSeller: boolean;
 
   @CreateDateColumn()
   created_at: Date;
